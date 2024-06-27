@@ -1,6 +1,6 @@
 const fs = require("fs");
 // const chalk = require("chalk");
-const validator = require("validator");
+// const validator = require("validator");
 // const { json } = require("express");
 
 // Create folder if it doesn't exist
@@ -35,6 +35,18 @@ const findcontact = (nama) => {
   return contact;
 };
 // menuliskan / menimpa file contacts.json
+const saveContact = (datacontact) => {
+  fs.writeFileSync("data/contact.json", JSON.stringify(datacontact));
+};
 // menambahkan data contact baru
-
-module.exports = { loadcontact, findcontact };
+const addContact = (contact) => {
+  const datacontact = loadcontact();
+  datacontact.push(contact);
+  saveContact(datacontact);
+};
+// cek duplikat nama
+const cekDuplikat = (nama)=>{
+  const datacontact = loadcontact()
+  return datacontact.find((contact)=> contact.nama === nama);
+}
+module.exports = { loadcontact, findcontact, addContact, cekDuplikat };
