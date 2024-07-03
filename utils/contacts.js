@@ -49,4 +49,20 @@ const cekDuplikat = (nama)=>{
   const datacontact = loadcontact()
   return datacontact.find((contact)=> contact.nama === nama);
 }
-module.exports = { loadcontact, findcontact, addContact, cekDuplikat };
+// hapus contact
+const deleteContact = (nama) =>{
+  const datacontact = loadcontact();
+  const filteredContact = datacontact.filter((contact)=> contact.nama !== nama)
+  // console.log(filteredContact);
+  saveContact(filteredContact);
+}
+// update contact
+const updateContact = (contactBaru)=>{
+  const datacontact = loadcontact()
+// hilangkan contact lama yang namanya sama dengan oldnama 
+const filteredContact = datacontact.filter((contact)=> contact.nama !== contactBaru.oldNama)
+delete contactBaru.oldNama;
+filteredContact.push(contactBaru)
+saveContact(filteredContact)
+}
+module.exports = { loadcontact, findcontact, addContact, cekDuplikat,deleteContact,updateContact};
